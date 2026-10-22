@@ -1,0 +1,55 @@
+/*
+ * Entrada do Tailwind. Gere o CSS final com:
+ *   npm run dev    (recompila a cada alteração)
+ *   npm run build  (versão minificada)
+ * Saída: src/main/resources/static/css/app.css
+ */
+@import "tailwindcss" source(none);
+
+/* Arquivos onde o Tailwind procura classes */
+@source "../resources/templates";
+@source "../resources/static/js";
+
+/* Paleta do protótipo (identidade SENAI) */
+@theme {
+    --font-sans: Arial, Helvetica, sans-serif;
+
+    --color-senai-red: #e30613;
+    --color-senai-red-dark: #b90410;
+    --color-senai-blue: #17365d;
+    --color-ink: #263238;
+    --color-muted: #60717c;
+    --color-line: #dce3e7;
+    --color-page: #f2f5f6;
+    --color-surface-soft: #f7f9fa;
+    --color-surface-tint: #eef3f6;
+    --color-input-border: #aebbc2;
+}
+
+@layer components {
+    .btn-primario {
+        @apply cursor-pointer bg-senai-red px-5 py-3.5 text-[0.95rem] font-bold text-white transition-colors
+               hover:bg-senai-red-dark focus-visible:bg-senai-red-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-senai-blue;
+    }
+
+    .campo-label {
+        @apply text-sm font-bold text-senai-blue;
+    }
+
+    .campo {
+        @apply w-full border border-input-border bg-white px-3.5 py-3 text-base text-ink outline-none
+               focus:border-senai-red focus:ring-2 focus:ring-senai-red/15;
+    }
+
+    .feedback {
+        @apply border-l-4 px-3.5 py-3 text-sm text-ink;
+    }
+
+    .feedback--sucesso {
+        @apply border-senai-blue bg-surface-tint;
+    }
+
+    .feedback--erro {
+        @apply border-senai-red bg-surface-soft;
+    }
+}

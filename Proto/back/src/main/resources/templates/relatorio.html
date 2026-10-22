@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Relatório de Atrasos')}"></head>
+<body class="flex min-h-screen flex-col bg-page font-sans text-ink print:bg-white">
+
+    <header th:replace="~{fragments/layout :: cabecalho('Relatório de Atrasos', 'Novo registro', @{/})}"></header>
+
+    <main class="flex flex-1 items-start justify-center px-4 py-7 sm:px-6 sm:py-14 print:p-0">
+        <section class="w-full max-w-[1120px] border-t-[5px] border-senai-red bg-white px-5 py-6 shadow-[0_8px_24px_rgba(23,54,93,0.1)] sm:p-[38px] print:shadow-none">
+
+            <div class="flex items-end justify-between gap-7 border-b border-line pb-7 max-sm:flex-col max-sm:items-stretch">
+                <div>
+                    <p class="text-xs font-bold tracking-[0.08em] text-senai-red uppercase print:hidden">Área administrativa</p>
+                    <h2 class="mt-1.5 mb-2 text-[1.65rem] font-bold text-senai-blue">Registros armazenados</h2>
+                    <p class="text-[0.92rem] text-muted print:hidden">Consulte os registros do período selecionado.</p>
+                </div>
+                <button type="button" id="btn-imprimir" class="btn-primario print:hidden">Gerar relatório</button>
+            </div>
+
+            <div id="erro-carregamento" class="feedback feedback--erro mt-6" role="alert" hidden>
+                Não foi possível carregar os registros do servidor. Tente novamente em instantes.
+            </div>
+
+            <div class="my-6 grid grid-cols-1 gap-4 sm:mt-[30px] sm:mb-[34px] sm:grid-cols-3" aria-live="polite">
+                <div class="border-l-4 border-senai-red bg-surface-soft p-5">
+                    <strong id="total-registros" class="mb-1.5 block text-[1.65rem] text-senai-blue">0</strong>
+                    <span class="block text-[0.84rem] text-muted">Total de registros</span>
+                </div>
+                <div class="border-l-4 border-senai-red bg-surface-soft p-5">
+                    <strong id="registros-hoje" class="mb-1.5 block text-[1.65rem] text-senai-blue">0</strong>
+                    <span class="block text-[0.84rem] text-muted">Registros hoje</span>
+                </div>
+                <div class="border-l-4 border-senai-red bg-surface-soft p-5">
+                    <strong id="percentual-hoje" class="mb-1.5 block text-[1.65rem] text-senai-blue">0%</strong>
+                    <span class="block text-[0.84rem] text-muted">Percentual do dia</span>
+                </div>
+            </div>
+
+            <div class="mb-7 flex items-center justify-between gap-[18px] bg-surface-tint px-5 py-[18px] max-sm:flex-col max-sm:items-stretch print:hidden">
+                <div class="flex flex-col gap-2">
+                    <label for="seletor-periodo" class="campo-label">Período:</label>
+                    <input type="month" id="seletor-periodo" name="periodo" class="campo">
+                </div>
+                <div class="flex flex-col gap-2 sm:min-w-[360px]">
+                    <label for="seletor-aluno" class="campo-label">Visualizar aluno:</label>
+                    <select id="seletor-aluno" class="campo"></select>
+                </div>
+            </div>
+
+            <div class="mb-6 border-l-4 border-senai-blue py-1 pl-[18px]" aria-live="polite">
+                <h3 id="aluno-selecionado" class="mb-1.5 text-xl font-bold text-senai-blue">Nenhum aluno selecionado</h3>
+                <p id="cpf-selecionado" class="text-[0.92rem] text-muted"></p>
+                <p class="mt-2">Frequência: <strong id="frequencia-aluno">100%</strong></p>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full min-w-[600px] border-collapse text-left">
+                    <thead>
+                        <tr class="bg-senai-blue text-xs text-white uppercase">
+                            <th scope="col" class="px-3.5 py-[17px]">Data</th>
+                            <th scope="col" class="px-3.5 py-[17px]">Horário</th>
+                            <th scope="col" class="px-3.5 py-[17px]">Tipo</th>
+                        </tr>
+                    </thead>
+                    <tbody id="lista-registros" class="text-[0.95rem] [&>tr:nth-child(even)]:bg-surface-soft"></tbody>
+                </table>
+                <p id="estado-vazio" class="pt-[26px] pb-1.5 text-center text-muted">Nenhum registro encontrado.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer th:replace="~{fragments/layout :: rodape}"></footer>
+
+    <script th:src="@{/js/relatorio.js}"></script>
+</body>
+</html>

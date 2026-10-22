@@ -34,3 +34,22 @@ Subimos a aplicação em segundo plano e realizamos os testes automatizados:
 ## Como testar agora no seu computador:
 
 Você pode simplesmente rodar a classe MarianaApplication.java no VS Code (ou executar .\mvnw spring-boot:run dentro de Proto/back) e abrir no navegador: 👉 http://localhost:8080
+
+## Front-end (Thymeleaf + Tailwind)
+
+As telas ficam em `Proto/back` e são servidas pelo próprio Spring Boot:
+
+- `src/main/resources/templates/`: páginas Thymeleaf (`index.html` em `/`, `relatorio.html` em `/relatorio`) e o fragmento `fragments/layout.html` (head, cabeçalho e rodapé).
+- `src/main/resources/static/js/`: scripts que consomem a API real (`/api/frequencia/registrar`).
+- `src/main/frontend/styles.css`: entrada do Tailwind (cores do SENAI definidas em `@theme`).
+- `src/main/resources/static/css/app.css`: CSS gerado. Fica no repositório para o projeto rodar só com o `mvnw`, sem precisar de Node.
+
+Para editar o visual (precisa de Node 18+), dentro de `Proto/back`:
+
+```bash
+npm install      # uma vez
+npm run dev      # recompila o app.css a cada alteração nos templates/JS
+npm run build    # gera o app.css minificado antes de commitar
+```
+
+Os protótipos originais em HTML/CSS puro continuam em `Proto/` e `Proto/front/` como referência.
