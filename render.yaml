@@ -5,7 +5,7 @@ services:
     name: mariana-sra
     runtime: docker
     plan: free
-    region: oregon
+    region: virginia
     rootDir: Proto/back
     dockerfilePath: ./Dockerfile
     dockerContext: .
