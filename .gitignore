@@ -1,0 +1,21 @@
+# Maven build output
+target/
+**/target/
+*.class
+
+# Database files
+data/
+**/data/
+*.mv.db
+*.trace.db
+
+# IDEs and editors
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+
+# OS generated files
+.DS_Store
+Thumbs.db
