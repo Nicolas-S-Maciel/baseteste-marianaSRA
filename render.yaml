@@ -1,0 +1,27 @@
+# Blueprint do Render: New > Blueprint > selecione este repositório.
+# Na criação o Render pede os valores marcados com sync: false (dados do Neon).
+services:
+  - type: web
+    name: mariana-sra
+    runtime: docker
+    plan: free
+    region: virginia
+    rootDir: Proto/back
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    branch: main
+    autoDeploy: true
+    healthCheckPath: /
+    envVars:
+      # Formato: jdbc:postgresql://<host-do-neon>/<banco>?sslmode=require
+      - key: SPRING_DATASOURCE_URL
+        sync: false
+      - key: SPRING_DATASOURCE_USERNAME
+        sync: false
+      - key: SPRING_DATASOURCE_PASSWORD
+        sync: false
+      - key: SPRING_DATASOURCE_DRIVER_CLASS_NAME
+        value: org.postgresql.Driver
+      # Console do H2 não faz sentido em produção
+      - key: SPRING_H2_CONSOLE_ENABLED
+        value: "false"

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Registro de Atrasos')}"></head>
+<body class="flex min-h-screen flex-col bg-page font-sans text-ink">
+
+    <!-- Tela de boas-vindas: Espaço ativa o modo de acessibilidade com voz -->
+    <div id="tela-boas-vindas" role="dialog" aria-modal="true" aria-labelledby="titulo-boas-vindas"
+         class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#f4f6f9] text-center">
+        <div class="w-[90%] max-w-[400px] rounded-lg bg-white p-10 shadow-[0_4px_12px_rgba(0,0,0,0.1)]">
+            <img th:src="@{/img/logo-senai.jpg}" alt="Logo SENAI" class="mx-auto mb-[30px] max-w-[200px]">
+
+            <h2 id="titulo-boas-vindas" class="mb-5 text-[22px] font-bold text-[#333]">Acessibilidade</h2>
+
+            <p class="mb-[30px] text-base leading-normal text-[#555]">
+                Para ativar o <b>modo de acessibilidade com voz</b>, pressione agora a tecla<br>
+                <b class="text-lg text-[#333]">Barra de Espaço</b>.
+            </p>
+
+            <button type="button" id="btn-sem-acessibilidade"
+                    class="w-full cursor-pointer rounded bg-[#e3262e] px-6 py-3 text-base font-bold text-white transition-colors hover:bg-[#b81e25] focus-visible:bg-[#b81e25]">
+                Continuar sem acessibilidade
+            </button>
+        </div>
+
+        <div class="absolute bottom-0 w-full bg-[#1a365d] py-[15px] text-xs text-white">
+            &copy; 2026 Senai. Todos os direitos reservados.
+        </div>
+    </div>
+
+    <header th:replace="~{fragments/layout :: cabecalho('Registro de Atrasos', 'Relatório', @{/relatorio})}"></header>
+
+    <main class="flex flex-1 items-center justify-center px-4 py-7 sm:px-6 sm:py-14">
+        <div class="w-full max-w-[470px] border-t-[5px] border-senai-red bg-white px-5 py-6 shadow-[0_8px_24px_rgba(23,54,93,0.1)] sm:p-[38px]">
+            <img th:src="@{/img/logo-senai.jpg}" alt="Logo SENAI" class="mx-auto mb-7 block h-auto w-full max-w-[250px]">
+
+            <form id="formulario-registro" class="flex flex-col gap-[22px]" novalidate>
+                <div class="flex flex-col gap-2">
+                    <label for="nome" class="campo-label">Nome completo:</label>
+                    <input type="text" id="nome" name="nome" class="campo" placeholder="Digite o seu nome completo"
+                           autocomplete="name" required>
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <label for="cpf" class="campo-label">CPF:</label>
+                    <input type="text" id="cpf" name="cpf" class="campo" placeholder="Digite seu CPF"
+                           inputmode="numeric" maxlength="14" required>
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <label for="tipo" class="campo-label">Tipo de registro:</label>
+                    <select id="tipo" name="tipo" class="campo" required>
+                        <option value="Atraso">Atraso</option>
+                        <option value="Saída Adiantada">Saída Adiantada</option>
+                    </select>
+                </div>
+
+                <button type="submit" id="btn-enviar" class="btn-primario mt-1 disabled:cursor-wait disabled:opacity-70">
+                    Enviar Registro
+                </button>
+
+                <div id="feedback-registro" class="feedback" role="status" aria-live="polite" hidden></div>
+            </form>
+        </div>
+    </main>
+
+    <footer th:replace="~{fragments/layout :: rodape}"></footer>
+
+    <script th:src="@{/js/voz.js}"></script>
+    <script th:src="@{/js/registro.js}"></script>
+</body>
+</html>
